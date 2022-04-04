@@ -6,22 +6,22 @@
 
   <ItemGroup>
     <Reference Include="SimplexNoise">
-      <HintPath>..\Modules\SimplexNoise.dll</HintPath>
+      <HintPath>..\..\Modules\SimplexNoise.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
-      <HintPath>..\Modules\UnityEditor.dll</HintPath>
+      <HintPath>..\..\Modules\UnityEditor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>..\Modules\UnityEngine.dll</HintPath>
+      <HintPath>..\..\Modules\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>..\Modules\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>..\..\Modules\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.GridModule">
-      <HintPath>..\Modules\UnityEngine.GridModule.dll</HintPath>
+      <HintPath>..\..\Modules\UnityEngine.GridModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TilemapModule">
-      <HintPath>..\Modules\UnityEngine.TilemapModule.dll</HintPath>
+      <HintPath>..\..\Modules\UnityEngine.TilemapModule.dll</HintPath>
     </Reference>
   </ItemGroup>
 
