@@ -1,0 +1,16 @@
+C:\Users\janfr\OneDrive\Skrivebord\Frost\Frost\obj\Debug\netstandard2.0\Frost.csprojAssemblyReference.cache
+C:\Users\janfr\OneDrive\Skrivebord\Frost\Frost\obj\Debug\netstandard2.0\Frost.AssemblyInfoInputs.cache
+C:\Users\janfr\OneDrive\Skrivebord\Frost\Frost\obj\Debug\netstandard2.0\Frost.AssemblyInfo.cs
+C:\Users\janfr\OneDrive\Skrivebord\Frost\Frost\obj\Debug\netstandard2.0\Frost.csproj.CoreCompileInputs.cache
+C:\Users\janfr\OneDrive\Skrivebord\Frost\Frost\bin\Debug\netstandard2.0\Frost.deps.json
+C:\Users\janfr\OneDrive\Skrivebord\Frost\Frost\bin\Debug\netstandard2.0\Frost.dll
+C:\Users\janfr\OneDrive\Skrivebord\Frost\Frost\bin\Debug\netstandard2.0\Frost.pdb
+C:\Users\janfr\OneDrive\Skrivebord\Frost\Frost\bin\Debug\netstandard2.0\SimplexNoise.dll
+C:\Users\janfr\OneDrive\Skrivebord\Frost\Frost\bin\Debug\netstandard2.0\UnityEditor.dll
+C:\Users\janfr\OneDrive\Skrivebord\Frost\Frost\bin\Debug\netstandard2.0\UnityEngine.CoreModule.dll
+C:\Users\janfr\OneDrive\Skrivebord\Frost\Frost\bin\Debug\netstandard2.0\UnityEngine.dll
+C:\Users\janfr\OneDrive\Skrivebord\Frost\Frost\bin\Debug\netstandard2.0\UnityEngine.GridModule.dll
+C:\Users\janfr\OneDrive\Skrivebord\Frost\Frost\bin\Debug\netstandard2.0\UnityEngine.TilemapModule.dll
+C:\Users\janfr\OneDrive\Skrivebord\Frost\Frost\obj\Debug\netstandard2.0\Frost.csproj.CopyComplete
+C:\Users\janfr\OneDrive\Skrivebord\Frost\Frost\obj\Debug\netstandard2.0\Frost.dll
+C:\Users\janfr\OneDrive\Skrivebord\Frost\Frost\obj\Debug\netstandard2.0\Frost.pdb
