@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "WqBMPxsddVouSiEoIAKMZR+j+INxBwal4+ibL9WqSFd9JoVVCo8RweQax4foLf9kbjChrcH8IxIfYFxHf3IAug==",
+  "dgSpecHash": "TzLRB9BYoC5HmZXGtREtQ1jsY/dvQlSJZqwFVo/cs7UcCyZiU4K4kUowrTo3P159yVbZ8v/GZF/GQnNiNvTepg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\janfr\\OneDrive\\Skrivebord\\Frost\\Frost\\Frost.csproj",
+  "projectFilePath": "D:\\Documents\\Frost\\Frost\\Frost.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\janfr\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
-    "C:\\Users\\janfr\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+    "C:\\Users\\Krisn\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\Krisn\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
   ],
   "logs": []
 }

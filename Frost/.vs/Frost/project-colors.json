@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "b412f986-9a4b-4be3-b47e-fb1cdfba12fe": {
+      "ProjectGuid": "b412f986-9a4b-4be3-b47e-fb1cdfba12fe",
+      "DisplayName": "Frost",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
