@@ -318,9 +318,14 @@ namespace Frost
         }
 
 
-        public static Tilemap world()
+        public static Tilemap world(int pWidth, int pHeight, int pSeed, float pModifier)
         {
             int listLimit = 500;
+
+            Setup.width = pWidth;
+            Setup.height = pHeight;
+            Setup.seed = pSeed;
+            Setup.noiseModifier = pModifier;
 
             biomes = new Dictionary<int, Biome> { };
 

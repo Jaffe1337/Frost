@@ -88,6 +88,20 @@ namespace Frost
         }
 
 
+        public static void setTiles(Tile a, Tile b, Tile c, Tile d, Tile e, Tile border, Tilemap grid)
+        {
+            Tile2 = a;
+            Tile3 = b;
+            Tile4 = c;
+            Tile5 = d;
+            Tile6 = e;
+
+            Border = border;
+
+            map = grid;
+    }
+
+
         internal static void clearMap()
         {
             map.ClearAllTiles();
