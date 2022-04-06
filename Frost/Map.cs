@@ -88,7 +88,7 @@ namespace Frost
         }
 
 
-        public static void setTiles(Tile a, Tile b, Tile c, Tile d, Tile e, Tile border, Tilemap grid)
+        public static void setTiles(Tile a, Tile b, Tile c, Tile d, Tile e, Tilemap grid)
         {
             Tile2 = a;
             Tile3 = b;
@@ -96,7 +96,7 @@ namespace Frost
             Tile5 = d;
             Tile6 = e;
 
-            Border = border;
+            //Border = border;
 
             map = grid;
     }

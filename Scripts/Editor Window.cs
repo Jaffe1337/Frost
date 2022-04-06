@@ -8,8 +8,8 @@ using Frost;
 class FrostEditor : EditorWindow
 {
     public int width, height;
-    public float modifier;
-    public float skip = 0.01f; // find new name
+    public float modifier = 0.01f;
+    public int seed = 0;
     public Tile Coast;
     public Tile Water;
     public Tile Main_land;
@@ -77,7 +77,9 @@ class FrostEditor : EditorWindow
 
         width = EditorGUILayout.IntField("Map width", width);      
         height = EditorGUILayout.IntField("Map height", height);       
-        map = (Tilemap)EditorGUILayout.ObjectField("Tile Map", map, typeof(Tilemap), true);      
+        map = (Tilemap)EditorGUILayout.ObjectField("Tile Map", map, typeof(Tilemap), true);
+        modifier = EditorGUILayout.FloatField("Modifier", modifier);
+        seed = EditorGUILayout.IntField("Seed", seed);
         waterPercent = EditorGUILayout.FloatField("Water percent", waterPercent);
         beachPercent = EditorGUILayout.FloatField("Beach percent", beachPercent);
 
@@ -95,7 +97,8 @@ class FrostEditor : EditorWindow
         
         if (GUILayout.Button("Generate Map"))
         {
-            Debug.Log(width);
+            Map.setTiles(Coast, Water, Main_land, Biome_1, Biome_2, map);
+            Generation.world(width, height, seed, modifier);
         }
 
         GUILayout.Space(20);

@@ -9,10 +9,8 @@ namespace Frost
 {
     public class ObjectGeneration
     {
-        public static GameObject Single_obj;
-        public static GameObject Group_obj;
 
-        public void randomObj(UnityEngine.Object Single_obj, int amount, int target_biome, int width, int height)
+        public static void randomObj(UnityEngine.Object Single_obj, int amount, int target_biome, int width, int height)
         {
 
             GameObject parent_object;
@@ -35,7 +33,7 @@ namespace Frost
 
         }
 
-        private bool restraincheck(int pos_x, int x, int pos_y, int y)
+        private static bool restraincheck(int pos_x, int x, int pos_y, int y)
         {
             if (pos_x + x > 0 & pos_y + y > 0)
             {
@@ -54,7 +52,7 @@ namespace Frost
             }
         }
 
-        public void randomMultiObj(UnityEngine.Object Group_obj, int amount, int target_biome)
+        public static void randomMultiObj(UnityEngine.Object Group_obj, int amount, int target_biome)
         {
             GameObject parent_object;
 
