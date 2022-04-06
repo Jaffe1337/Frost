@@ -24,7 +24,7 @@ namespace Frost
                 int xVal = UnityEngine.Random.Range(0, width);
                 int yVal = UnityEngine.Random.Range(0, height);
 
-                if (Setup.obj[xVal, yVal] != 3 && Setup.obj[xVal, yVal] != 2)
+                if (Setup.obj[xVal, yVal] == target_biome)
                 {
                     UnityEngine.Object.Instantiate(Single_obj, new Vector3(xVal + 0.5f, yVal + 0.5f, 0), Quaternion.identity, parent_object.transform);
                     i++;
