@@ -2,20 +2,22 @@
 using System.Collections.Generic;
 using System.Text;
 
+using UnityEngine.Tilemaps;
+
 
 namespace Frost
 {
-    public class Generation
+    public class Generation // mapGeneration
     {
         // A variable that holds all tile ID's in an array of [x, y] where x and y are the position of the tile
-        private static float[,] obj;
+        // private static float[,] obj;
 
         // A smaller version of the obj variable, may be used if we generate larger maps
         private static float[,] altMap;
 
         // List of all biomes currently in our generated map
         // Public because needed to update
-        public static Dictionary<int, Biome> biomes;
+        public static Dictionary<int, Biome> biomes; // = new Dictionary<int, Biome> { };
 
         // The current biomeId
         private static int biomeId = 0;
@@ -55,7 +57,6 @@ namespace Frost
         // arr --> pos som skal sjekkes
         // cId, Id that will be checked
         // nId, new assigned Id
-
         private static void checkPos(List<List<int>> arr, int nId, int[] modifier)
         {
             // Array used to store position that need to be checked
@@ -72,7 +73,7 @@ namespace Frost
                 // Value to check for tiles on outline of map area
                 bool borderTile = false;
 
-                obj[x + modifier[0], y + modifier[1]] = nId;
+                Setup.obj[x + modifier[0], y + modifier[1]] = nId;
 
                 // Add to biome array
                 biomes[biomeId].expandArea(new List<int> { x + modifier[0], y + modifier[1] });
@@ -173,7 +174,7 @@ namespace Frost
                 for (int y = 0; y < size[1]; y++)
                 {
 
-                    if (obj[x + modifier[0], y + modifier[1]] == id)
+                    if (Setup.obj[x + modifier[0], y + modifier[1]] == id)
                     {
 
                         List<List<int>> CheckArr = new List<List<int>> { };
@@ -198,30 +199,55 @@ namespace Frost
         }
 
 
-        private static void divide() // Only affects color changes of biomes!
+        private static void divide(int[] modifier, int[] size) //int xLimit, int yLimit) // Only affects color changes of biomes!
         {
-            int limit = 500;
+            altMap = new float[size[0], size[1]];
+
+            for (int w = 0; w < size[0]; w++) // maybe put in function to prevent so many nested loops
+                for (int h = 0; h < size[1]; h++)
+                    altMap[w, h] = Setup.obj[w + modifier[0], h + modifier[1]];
+
+            checkMap(modifier, size);
+        }
+
+
+        public static void controller(int Limit)
+        {
+            int width = Setup.width;
+            int height = Setup.height;
+
             int[] modifier = new int[] { 0, 0 };
-            int[] size = new int[] { limit, limit };
+            int[] size; // = new int[] { xLimit, yLimit };
 
-            altMap = new float[limit, limit];
 
-            for (int a = 0; a < (Setup.width / limit); a++)
+            for (int a = 0; (a * Limit) < width; a++)
             {
-                for (int b = 0; b < (Setup.height / limit); b++)
+                for (int b = 0; (b * Limit) < height; b++)
                 {
-                    modifier[0] = a * limit;
-                    modifier[1] = b * limit;
+                    // Refresh size for each iteration
+                    size = new int[] { Limit, Limit };
 
-                    for (int w = 0; w < limit; w++) // maybe put in function to prevent so many nested loops
-                        for (int h = 0; h < limit; h++)
-                            altMap[w, h] = Setup.noise[w + modifier[0], h + modifier[1]];
 
-                    checkMap(modifier, size);
+                    modifier[0] = a * Limit;
+                    modifier[1] = b * Limit;
 
+                    // Check for width not matching limit
+                    if ((modifier[0] + Limit) > width)
+                    {
+                        size[0] = width - modifier[0];
+                    }
+
+                    // Check for height not matching limit
+                    if ((modifier[1] + Limit) > height)
+                    {
+                        size[1] = height - modifier[1];
+                    }
+
+                    divide(modifier, size);
                 }
             }
         }
+
 
         private static void biomeMerging()
         {
@@ -290,6 +316,31 @@ namespace Frost
 
 
         }
+
+
+        public static Tilemap world()
+        {
+            int listLimit = 500;
+
+            biomes = new Dictionary<int, Biome> { };
+
+            Map.clearMap();
+
+            if (Setup.seed == 0)
+                Setup.randomSeed();
+
+            Setup.Noise();
+            Setup.assignTiles();
+
+            controller(listLimit);
+
+            biomeMerging();
+
+            Map.updateAllTiles();
+
+            return Map.map;
+        }
+
 
     }
 }
