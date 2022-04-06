@@ -28,6 +28,21 @@ Here is a short guide on how to generate a map using the Editor window.
 
 # Generate objects
 
+There is an option between randomly generating singular objects across the map or group of objects. 
+
+-First create a 2D Gameobject by either generating a default gameobject (GameObject/2D Object/Sprites/Some desired object) or importing a custom sprite by first dragging the picture from the “File explorer” into the Assets directory in Unity and then into the Unity Hierarchy.
+-If you wish, add the components to the newly created object
+-In the Inspector drag the Gameobject to either Single_obj field for singular object scatter or Group_obj for grouped scatter.
+-Choose the amount of objects/groups you want to have, in the amount field.
+-Then choose which biome the objects will spawn in by inputting the Id of the biome in target_biome field.
+
+Biome IDs:
+
+-Coast = 2
+-Water = 3
+-Main land = 4
+-Biome 1 = 5
+-Biome 2 = 6
 
 
 
