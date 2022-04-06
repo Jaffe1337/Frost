@@ -2,24 +2,26 @@
 using System.Collections.Generic;
 using System.Text;
 
+using UnityEngine;
 using SimplexNoise;
 
 namespace Frost
 {
-    class Setup
+    public class Setup
     {
         public static float[,] noise;
         public static float[,] obj;
 
         public static int width, height;
         public static int seed = 0;
+        public static float noiseModifier = 0.1f;
 
         public static float waterPercent = 50f;
         public static float beachPercent = 10f;
 
 
         // Initiazes our noise map using SimplexNoise
-        public static void Noise(int width, int height, float noiseModifier)
+        public static void Noise()
         {
             // Changes seed if user have assigned one
             SimplexNoise.Noise.Seed = seed;
@@ -28,15 +30,15 @@ namespace Frost
             // Create a copy of Noise so we have original if we want to use it later
             obj = noise;
 
-                    }
+        }
 
         public static void randomSeed()
         {
-            // create a random seed?
-            // Random.Range(0, 10);
+            // Seed up to 100 million
+            seed = UnityEngine.Random.Range(0, 100000000);
         }
 
-        public static void assignTiles()
+        internal static void assignTiles()
         {
 
             for (int x = 0; x < width; x++)

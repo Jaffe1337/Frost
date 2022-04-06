@@ -7,7 +7,7 @@ using UnityEngine.Tilemaps;
 
 namespace Frost
 {
-    class Map
+    public class Map
     {
         public static Tile Tile2;
         public static Tile Tile3;
@@ -30,7 +30,7 @@ namespace Frost
 
         public static void updateAllTiles()
         {
-            map.ClearAllTiles();
+            clearMap();
 
 
             for (int x = 0; x < Setup.width; x++)
@@ -85,6 +85,26 @@ namespace Frost
             } */
 
 
+        }
+
+
+        public static void setTiles(Tile a, Tile b, Tile c, Tile d, Tile e, Tile border, Tilemap grid)
+        {
+            Tile2 = a;
+            Tile3 = b;
+            Tile4 = c;
+            Tile5 = d;
+            Tile6 = e;
+
+            Border = border;
+
+            map = grid;
+    }
+
+
+        internal static void clearMap()
+        {
+            map.ClearAllTiles();
         }
 
 
