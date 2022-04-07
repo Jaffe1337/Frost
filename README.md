@@ -35,7 +35,7 @@ There is an option between randomly generating singular objects across the map o
 - In the FrostEditor drag the Gameobject to either Single_obj field for singular object scatter or Group_obj for grouped scatter.
 - Choose the amount of objects/groups you want to have, in the amount field.
 - Then choose which biome the objects will spawn in by clicking the dropdown menu and choosing the biome.
-- Click "Generate object" for singular object scatter or Generate group objects for grouped scatter.
+- Click "Generate object" for singular object scatter or "Generate group objects" for grouped scatter.
 
 # Known working Unity versions
 
