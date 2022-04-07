@@ -19,7 +19,7 @@ class FrostEditor : EditorWindow
     public Object Single_obj;
     public Object Group_obj;
     public int amount;
-    public string[] target_biome_array = new string[] {"Coast","Water","Main land","Biome 1", "Biome 2"};
+    public string[] target_biome_array = new string[] { "Main land", "Biome 1", "Biome 2" };
     public int target_biome;
     public int index = 0;
 
@@ -41,18 +41,12 @@ class FrostEditor : EditorWindow
         switch (index)
         {
             case 0:
-                target_biome = 2;
-                break;
-            case 1:
-                target_biome = 3;
-                break;
-            case 2:
                 target_biome = 4;
                 break;
-            case 3:
+            case 1:
                 target_biome = 5;
                 break;
-            case 4:
+            case 2:
                 target_biome = 6;
                 break;
             default:
@@ -61,11 +55,31 @@ class FrostEditor : EditorWindow
         }
     }
 
+    public bool restraincheck(int pos_x, int x, int pos_y, int y)
+    {
+        if (pos_x + x > 0 & pos_y + y > 0)
+        {
+            if (pos_x + x < width & pos_y < height)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+
     void OnGUI()
     {
-        
+
         EditorGUIUtility.labelWidth = 100;
-        //EditorGUIUtility.fieldWidth = 20;
+
         var label_style = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter };
 
 
@@ -75,8 +89,8 @@ class FrostEditor : EditorWindow
         GUILayout.Label("Map settings", label_style);
         GUILayout.Space(3);
 
-        width = EditorGUILayout.IntField("Map width", width);      
-        height = EditorGUILayout.IntField("Map height", height);       
+        width = EditorGUILayout.IntField("Map width", width);
+        height = EditorGUILayout.IntField("Map height", height);
         map = (Tilemap)EditorGUILayout.ObjectField("Tile Map", map, typeof(Tilemap), true);
         modifier = EditorGUILayout.FloatField("Modifier", modifier);
         seed = EditorGUILayout.IntField("Seed", seed);
@@ -94,15 +108,16 @@ class FrostEditor : EditorWindow
         Biome_2 = (Tile)EditorGUILayout.ObjectField("Biome_2 Tile", Biome_2, typeof(Tile), true);
 
         GUILayout.Space(15);
-        
+
         if (GUILayout.Button("Generate Map"))
         {
             Map.setTiles(Coast, Water, Main_land, Biome_1, Biome_2, map);
             Generation.world(width, height, seed, modifier);
+            Debug.Log(seed);
         }
 
         GUILayout.Space(20);
-        GUILayout.Label("Object generation settings",label_style);
+        GUILayout.Label("Object generation settings", label_style);
         GUILayout.Space(5);
 
         Single_obj = EditorGUILayout.ObjectField("Single object", Single_obj, typeof(Object), true);
@@ -110,7 +125,7 @@ class FrostEditor : EditorWindow
         amount = EditorGUILayout.IntField("Object amount", amount);
 
         EditorGUILayout.BeginHorizontal();
-        
+
         GUILayout.Label("Target biome", label_style);
         GUILayout.FlexibleSpace();
         index = EditorGUILayout.Popup(index, target_biome_array, GUILayout.Width(250));
@@ -123,19 +138,19 @@ class FrostEditor : EditorWindow
         if (GUILayout.Button("Generate object"))
         {
             convert_target_biome();
-            
-            Debug.Log(target_biome);
+            ObjectGeneration.randomObj(Single_obj, target_biome, amount);
 
         }
         GUILayout.Space(3);
         if (GUILayout.Button("Generate group objects"))
         {
-           
+            convert_target_biome();
+            ObjectGeneration.randomMultiObj(Group_obj, target_biome, amount);
         }
         EditorGUILayout.EndHorizontal();
 
         EditorGUILayout.EndScrollView();
 
-       
+
     }
 }

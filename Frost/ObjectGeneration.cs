@@ -10,17 +10,18 @@ namespace Frost
     public class ObjectGeneration
     {
 
-        public static void randomObj(UnityEngine.Object Single_obj, int amount, int target_biome, int width, int height)
+        public static void randomObj(UnityEngine.Object Single_obj, int target_biome, int amount)
         {
 
+            /*int xVal = 0;
+            int yVal = 0;
+            
             GameObject parent_object;
-
             parent_object = new GameObject("parent " + Single_obj);
 
             for (int i = 0; i < amount;)
             {
-                int xVal = UnityEngine.Random.Range(0, width);
-                int yVal = UnityEngine.Random.Range(0, height);
+                generatepoint(xVal,yVal);
 
                 if (Setup.obj[xVal, yVal] == target_biome)
                 {
@@ -28,87 +29,118 @@ namespace Frost
                     i++;
                 };
 
-            };
+            };*/
+
+            GameObject parent_object;
+            parent_object = new GameObject("Biome: " + target_biome + "Parent " + Single_obj);
+
+            List<Generation.Biome> a = new List<Generation.Biome> { };
+            foreach (Generation.Biome b in Generation.biomes.Values)
+            {
+                if (b.tileId == target_biome)
+                    a.Add(b);
+            }
+            
+            
+
+            for (int i = 0; i < amount;i++)
+            {
+                int c = UnityEngine.Random.Range(0, a.Count - 1);
+                
+                int d = UnityEngine.Random.Range(0, a[c].area.Count - 1);
+
+                List<int> cHolder = new List<int> { };
+                List<int> dHolder = new List<int> { };
+
+                
+
+                bool check = true;
+
+                for(int u = 0; u < cHolder.Count; u++)
+                    if(c == cHolder[u] && d == dHolder[u])
+                    {
+                        check = false;
+                    }
+
+                if (check) 
+                {
+                    cHolder.Add(c);
+                    dHolder.Add(d);
+
+                    int x = a[c].area[d][0];
+                    int y = a[c].area[d][1];
+
+                    UnityEngine.Object.Instantiate(Single_obj, new Vector3(x + 0.5f, y + 0.5f, 0), Quaternion.identity, parent_object.transform); }   
+                }
 
 
         }
 
-        private static bool restraincheck(int pos_x, int x, int pos_y, int y)
-        {
-            if (pos_x + x > 0 & pos_y + y > 0)
-            {
-                if (pos_x + x < Setup.width & pos_y < Setup.height)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                return false;
-            }
-        }
 
-        public static void randomMultiObj(UnityEngine.Object Group_obj, int amount, int target_biome)
+        public static void randomMultiObj(UnityEngine.Object Group_obj, int target_biome, int amount)
         {
             GameObject parent_object;
 
-            parent_object = new GameObject("Biome: " + target_biome + " Parent " + Group_obj);
+            parent_object = new GameObject("Groups, " + "Biome: " + target_biome + " Parent " + Group_obj);
 
-            int areas = 15;
-            int square = 8;
+            int areas = 9;
+            int square = 2;
 
-            for (int u = 1; u <= amount;)
+            for (int u = 1; u <= amount;u++)
             {
-                int xVal = UnityEngine.Random.Range(0, Setup.width);
-                int yVal = UnityEngine.Random.Range(0, Setup.height);
-                List<List<int>> vectors = new List<List<int>> { };
-                List<int> pos = new List<int> { xVal, yVal };
-                int x, y;
-
-                if (Setup.obj[xVal, yVal] == target_biome)
+               
+                List<Generation.Biome> biomeVal = new List<Generation.Biome> { };
+                foreach (Generation.Biome b in Generation.biomes.Values)
                 {
-                    u++;
-                    for (int i = 0; i < areas;)
+                    if (b.tileId == target_biome)
+                        biomeVal.Add(b);
+                }
+                
+                int c = UnityEngine.Random.Range(0, biomeVal.Count - 1);
+
+                int d = UnityEngine.Random.Range(0, biomeVal[c].area.Count - 1);
+
+                List<int> cHolder = new List<int> { };
+                List<int> dHolder = new List<int> { };
+
+                    for (int i = 0; i < areas;i++)
                     {
-                        x = UnityEngine.Random.Range(-square, square);
-                        y = UnityEngine.Random.Range(-square, square);
+                        int offsetX = UnityEngine.Random.Range(-square, square);
+                        int offsetY = UnityEngine.Random.Range(-square, square);
 
-                        // vectors.Add(new List<int> { x, y });
+                    bool check = true;
 
-
-                        bool check = true;
-
-                        foreach (List<int> v in vectors)
-                        {
-                            if (v[0] == (pos[0] + x) && v[1] == (pos[1] + y))
+                        for (int z = 0; z < cHolder.Count; z++) 
+                        { 
+                            if (c + offsetX == cHolder[z] && d + offsetY == dHolder[z])
                             {
                                 check = false;
-                                break;
                             }
                         }
 
+                       
                         if (check)
                         {
-                            if (restraincheck(pos[0], x, pos[1], y) == true)
+                                cHolder.Add(c + offsetX);
+                                dHolder.Add(d + offsetY);
 
-                                if (Setup.obj[pos[0] + x, pos[1] + y] == target_biome)
+                                int x = biomeVal[c].area[d][0];
+                                int y = biomeVal[c].area[d][1];
+
+                                x += offsetX;
+                                y += offsetY;
+
+                                if (Setup.obj[x, y] == target_biome) 
                                 {
-                                    vectors.Add(new List<int> { pos[0] + x, pos[1] + y });
-                                    UnityEngine.Object.Instantiate(Group_obj, new Vector3(pos[0] + x, pos[1] + y, 0), Quaternion.identity, parent_object.transform);
-                                    i++;
-                                }
+                                UnityEngine.Object.Instantiate(Group_obj, new Vector3(x + 0.5f, y + 0.5f, 0), Quaternion.identity, parent_object.transform);
+                                    
+                                }                   
                         }
 
                     }
-                }
-                pos.Clear();
-
             }
-        }
 
+        }
     }
+
 }
