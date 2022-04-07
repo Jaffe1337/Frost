@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -6,22 +6,22 @@
 
   <ItemGroup>
     <Reference Include="SimplexNoise">
-      <HintPath>C:\Users\Krisn\OneDrive\Desktop\Modules\SimplexNoise.dll</HintPath>
+      <HintPath>..\..\Modules\SimplexNoise.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
-      <HintPath>C:\Users\Krisn\OneDrive\Desktop\Modules\UnityEditor.dll</HintPath>
+      <HintPath>..\..\Modules\UnityEditor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>C:\Users\Krisn\OneDrive\Desktop\Modules\UnityEngine.dll</HintPath>
+      <HintPath>..\..\Modules\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>C:\Users\Krisn\OneDrive\Desktop\Modules\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>..\..\Modules\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.GridModule">
-      <HintPath>C:\Users\Krisn\OneDrive\Desktop\Modules\UnityEngine.GridModule.dll</HintPath>
+      <HintPath>..\..\Modules\UnityEngine.GridModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TilemapModule">
-      <HintPath>C:\Users\Krisn\OneDrive\Desktop\Modules\UnityEngine.TilemapModule.dll</HintPath>
+      <HintPath>..\..\Modules\UnityEngine.TilemapModule.dll</HintPath>
     </Reference>
   </ItemGroup>
 

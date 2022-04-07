@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Documents\\Frost\\Frost\\Frost.csproj": {}
+    "C:\\Users\\janfr\\OneDrive\\Skrivebord\\Frost-Demo\\Frost\\Frost.csproj": {}
   },
   "projects": {
-    "D:\\Documents\\Frost\\Frost\\Frost.csproj": {
+    "C:\\Users\\janfr\\OneDrive\\Skrivebord\\Frost-Demo\\Frost\\Frost.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Documents\\Frost\\Frost\\Frost.csproj",
+        "projectUniqueName": "C:\\Users\\janfr\\OneDrive\\Skrivebord\\Frost-Demo\\Frost\\Frost.csproj",
         "projectName": "Frost",
-        "projectPath": "D:\\Documents\\Frost\\Frost\\Frost.csproj",
-        "packagesPath": "C:\\Users\\Krisn\\.nuget\\packages\\",
-        "outputPath": "D:\\Documents\\Frost\\Frost\\obj\\",
+        "projectPath": "C:\\Users\\janfr\\OneDrive\\Skrivebord\\Frost-Demo\\Frost\\Frost.csproj",
+        "packagesPath": "C:\\Users\\janfr\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\janfr\\OneDrive\\Skrivebord\\Frost-Demo\\Frost\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Krisn\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\janfr\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -57,7 +57,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

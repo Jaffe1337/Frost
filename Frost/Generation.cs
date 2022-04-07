@@ -57,7 +57,7 @@ namespace Frost
         // arr --> pos som skal sjekkes
         // cId, Id that will be checked
         // nId, new assigned Id
-        private static void checkPos(List<List<int>> arr, int nId, int[] modifier)
+        private static void checkPos(List<List<int>> arr, int nId, int[] modifier, int[] size)
         {
             // Array used to store position that need to be checked
             List<List<int>> newArr = new List<List<int>> { };
@@ -91,18 +91,18 @@ namespace Frost
 
 
                 // Check lower tile
-                if (y + 1 <= 500 - 1) { down = y + 1; }
+                if (y + 1 <= size[1] - 1) { down = y + 1; }
                 else
                 {
-                    down = 500 - 1;
+                    down = size[1] - 1;
                     borderTile = true;
                 }
 
                 // Check right tile
-                if (x + 1 <= 500 - 1) { right = x + 1; }
+                if (x + 1 <= size[0] - 1) { right = x + 1; }
                 else
                 {
-                    right = 500 - 1;
+                    right = size[0] - 1;
                     borderTile = true;
                 }
 
@@ -157,7 +157,7 @@ namespace Frost
             // Continue function if there is any position in newArr
             if (newArr.Count > 0)
             {
-                checkPos(newArr, nId, modifier);
+                checkPos(newArr, nId, modifier, size);
             }
 
         }
@@ -184,7 +184,7 @@ namespace Frost
 
                         // Start pos
                         CheckArr.Add(new List<int> { x, y });
-                        checkPos(CheckArr, newId, modifier);
+                        checkPos(CheckArr, newId, modifier, size);
 
                         biomeId++; // only added in this funtion? maybe local variable instead of global
 
