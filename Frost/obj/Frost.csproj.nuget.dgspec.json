@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\janfr\\OneDrive\\Skrivebord\\Frost-Demo\\Frost\\Frost.csproj": {}
+    "C:\\Users\\janfr\\OneDrive\\Skrivebord\\Frost\\Frost\\Frost.csproj": {}
   },
   "projects": {
-    "C:\\Users\\janfr\\OneDrive\\Skrivebord\\Frost-Demo\\Frost\\Frost.csproj": {
+    "C:\\Users\\janfr\\OneDrive\\Skrivebord\\Frost\\Frost\\Frost.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\janfr\\OneDrive\\Skrivebord\\Frost-Demo\\Frost\\Frost.csproj",
+        "projectUniqueName": "C:\\Users\\janfr\\OneDrive\\Skrivebord\\Frost\\Frost\\Frost.csproj",
         "projectName": "Frost",
-        "projectPath": "C:\\Users\\janfr\\OneDrive\\Skrivebord\\Frost-Demo\\Frost\\Frost.csproj",
+        "projectPath": "C:\\Users\\janfr\\OneDrive\\Skrivebord\\Frost\\Frost\\Frost.csproj",
         "packagesPath": "C:\\Users\\janfr\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\janfr\\OneDrive\\Skrivebord\\Frost-Demo\\Frost\\obj\\",
+        "outputPath": "C:\\Users\\janfr\\OneDrive\\Skrivebord\\Frost\\Frost\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\janfr\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -25,9 +25,12 @@ namespace Frost
         {
             // Changes seed if user have assigned one
             SimplexNoise.Noise.Seed = seed;
+
+            noise = new float[width,height];
             noise = SimplexNoise.Noise.Calc2D(width, height, noiseModifier);
-            
+
             // Create a copy of Noise so we have original if we want to use it later
+            obj = new float[width, height];
             obj = noise;
 
         }

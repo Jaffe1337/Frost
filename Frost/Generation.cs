@@ -51,6 +51,13 @@ namespace Frost
                 this.border.Add(pos);
             }
 
+            // Merge with another biome
+            public void merge(Biome biome)
+            {
+                foreach (List<int> pos in biome.area)
+                    this.expandArea(pos);
+            }
+
         }
 
 
@@ -249,9 +256,26 @@ namespace Frost
         }
 
 
+        private static int biomeCheck(Biome biome1, Biome biome2)
+        {
+            // Check for which biome has the highest id, and merge the other with it
+            if (biome2.biomeId > biome1.biomeId)
+            {
+                biome2.merge(biome1);
+                return biome1.biomeId;
+            }
+            else
+            {
+                biome1.merge(biome2);
+                return biome2.biomeId;
+            }
+        }
+
+
         private static void biomeMerging()
         {
             List<Biome> temp = new List<Biome> { };
+            List<int> revomables = new List<int> { };
 
             // Add biomes with a border
             foreach (Biome biome in biomes.Values)
@@ -263,7 +287,7 @@ namespace Frost
             }
 
             // Remove biomes that border to total map border
-
+            // Maybe fix all the nested for loops? split into function?
             foreach (Biome biome in temp)
             {
                 int x = biome.border[0][0];
@@ -283,37 +307,42 @@ namespace Frost
 
 
                 foreach (Biome biome2 in biomes.Values)
+                // for(int i = 0; i < biomes.Count;)
                 {
-                    foreach (List<int> l in biome2.area)
-                    {
-                        if (down != 0 && l[0] == list[0] && l[1] == list[1] && biome.biomeId != biome2.biomeId)
+                    //if(biomes.ContainsKey(i))
+                    {                        
+                        foreach (List<int> l in biome2.area)
                         {
-                            // Merge instead of just changing id
-                            biome2.tileId = biome.tileId;
+                            if (down != 0 && l[0] == list[0] && l[1] == list[1] && biome.biomeId != biome2.biomeId)
+                            {
+                                revomables.Add(biomeCheck(biome, biome2));
+                                // biome2.tileId = biome.tileId;
+                            }
+                            else if (up != 0 && l[0] == list2[0] && l[1] == list2[1] && biome.biomeId != biome2.biomeId)
+                            {
+                                revomables.Add(biomeCheck(biome, biome2));
+                            }
+                            else if (left != 0 && l[0] == list3[0] && l[1] == list3[1] && biome.biomeId != biome2.biomeId)
+                            {
+                                revomables.Add(biomeCheck(biome, biome2));
+                            }
+                            else if (right != 0 && l[0] == list4[0] && l[1] == list4[1] && biome.biomeId != biome2.biomeId)
+                            {
+                                revomables.Add(biomeCheck(biome, biome2));
+                            }
                         }
-                        else if (up != 0 && l[0] == list2[0] && l[1] == list2[1] && biome.biomeId != biome2.biomeId)
-                        {
-                            // testArea.Add(biome2);
-                            // biome2.biomeId = biome.biomeId;
-                            biome2.tileId = biome.tileId;
-                        }
-                        else if (left != 0 && l[0] == list3[0] && l[1] == list3[1] && biome.biomeId != biome2.biomeId)
-                        {
-                            // testArea.Add(biome2);
-                            // biome2.biomeId = biome.biomeId;
-                            biome2.tileId = biome.tileId;
-                        }
-                        else if (right != 0 && l[0] == list4[0] && l[1] == list4[1] && biome.biomeId != biome2.biomeId)
-                        {
-                            // testArea.Add(biome2);
-                            // biome2.biomeId = biome.biomeId;
-                            biome2.tileId = biome.tileId;
-                        }
+                        // i++;
                     }
-                }
+
+                    
+                }               
 
             }
-
+            /*
+            foreach(int id in revomables)
+            {
+                biomes.Remove(id);
+            } */
 
         }
 
