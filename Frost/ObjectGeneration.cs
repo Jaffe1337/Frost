@@ -1,36 +1,33 @@
-﻿using System;
+﻿// Frost Library
+//
+// A random world generation library for Unity.
+// Authors: Jan Fredrik Bråstad & Kristina Nikitina
+// Date: Spring 2022
+
+
+using System;
 using System.Collections.Generic;
 using System.Text;
-
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+
 namespace Frost
 {
+    /// <summary>
+    /// Part of the Library that will handle any type of object generation.
+    /// This must be done after there has been generated a map.
+    /// </summary>
     public class ObjectGeneration
     {
-
+        /// <summary>
+        /// This function will generate objects around a map based on given parameters.
+        /// </summary>
+        /// <param name="Single_obj"> The Unity game object that will be placed on the map </param>
+        /// <param name="target_biome"> Id which indicates which biome this object will be generated in </param>
+        /// <param name="amount"> The amount of objects to be generated </param>
         public static void randomObj(UnityEngine.Object Single_obj, int target_biome, int amount)
         {
-
-            /*int xVal = 0;
-            int yVal = 0;
-            
-            GameObject parent_object;
-            parent_object = new GameObject("parent " + Single_obj);
-
-            for (int i = 0; i < amount;)
-            {
-                generatepoint(xVal,yVal);
-
-                if (Setup.obj[xVal, yVal] == target_biome)
-                {
-                    UnityEngine.Object.Instantiate(Single_obj, new Vector3(xVal + 0.5f, yVal + 0.5f, 0), Quaternion.identity, parent_object.transform);
-                    i++;
-                };
-
-            };*/
-
             GameObject parent_object;
             parent_object = new GameObject("Biome: " + target_biome + "Parent " + Single_obj);
 
@@ -39,9 +36,7 @@ namespace Frost
             {
                 if (b.tileId == target_biome)
                     a.Add(b);
-            }
-            
-            
+            }           
 
             for (int i = 0; i < amount;i++)
             {
@@ -50,9 +45,7 @@ namespace Frost
                 int d = UnityEngine.Random.Range(0, a[c].area.Count - 1);
 
                 List<int> cHolder = new List<int> { };
-                List<int> dHolder = new List<int> { };
-
-                
+                List<int> dHolder = new List<int> { };                
 
                 bool check = true;
 
@@ -73,16 +66,22 @@ namespace Frost
                     UnityEngine.Object.Instantiate(Single_obj, new Vector3(x + 0.5f, y + 0.5f, 0), Quaternion.identity, parent_object.transform); }   
                 }
 
-
         }
 
 
+        /// <summary>
+        /// This function will generate objects on the map that are grouped together.
+        /// </summary>
+        /// <param name="Group_obj"> The Unity game object that will be placed on the map </param>
+        /// <param name="target_biome"> Id which indicates which biome this object will be generated in </param>
+        /// <param name="amount"> The amount of group objects to be generated </param>
         public static void randomMultiObj(UnityEngine.Object Group_obj, int target_biome, int amount)
         {
             GameObject parent_object;
 
             parent_object = new GameObject("Groups, " + "Biome: " + target_biome + " Parent " + Group_obj);
 
+            // Maybe change to variables
             int areas = 9;
             int square = 2;
 
@@ -103,44 +102,43 @@ namespace Frost
                 List<int> cHolder = new List<int> { };
                 List<int> dHolder = new List<int> { };
 
-                    for (int i = 0; i < areas;i++)
-                    {
-                        int offsetX = UnityEngine.Random.Range(-square, square);
-                        int offsetY = UnityEngine.Random.Range(-square, square);
+                for (int i = 0; i < areas;i++)
+                {
+                    int offsetX = UnityEngine.Random.Range(-square, square);
+                    int offsetY = UnityEngine.Random.Range(-square, square);
 
                     bool check = true;
 
-                        for (int z = 0; z < cHolder.Count; z++) 
-                        { 
-                            if (c + offsetX == cHolder[z] && d + offsetY == dHolder[z])
-                            {
-                                check = false;
-                            }
+                    for (int z = 0; z < cHolder.Count; z++) 
+                    { 
+                        if (c + offsetX == cHolder[z] && d + offsetY == dHolder[z])
+                        {
+                            check = false;
                         }
+                    }
 
                        
-                        if (check)
+                    if (check)
+                    {
+                        cHolder.Add(c + offsetX);
+                        dHolder.Add(d + offsetY);
+
+                        int x = biomeVal[c].area[d][0];
+                        int y = biomeVal[c].area[d][1];
+
+                        x += offsetX;
+                        y += offsetY;
+
+                        if (Setup.obj[x, y] == target_biome) 
                         {
-                                cHolder.Add(c + offsetX);
-                                dHolder.Add(d + offsetY);
-
-                                int x = biomeVal[c].area[d][0];
-                                int y = biomeVal[c].area[d][1];
-
-                                x += offsetX;
-                                y += offsetY;
-
-                                if (Setup.obj[x, y] == target_biome) 
-                                {
-                                UnityEngine.Object.Instantiate(Group_obj, new Vector3(x + 0.5f, y + 0.5f, 0), Quaternion.identity, parent_object.transform);
+                        UnityEngine.Object.Instantiate(Group_obj, new Vector3(x + 0.5f, y + 0.5f, 0), Quaternion.identity, parent_object.transform);
                                     
-                                }                   
-                        }
-
+                        }                   
                     }
+
+                }
             }
 
         }
     }
-
 }

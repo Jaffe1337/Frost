@@ -1,4 +1,11 @@
-﻿using System;
+﻿// Frost Library
+//
+// A random world generation library for Unity.
+// Created by: Jan Fredrik Bråstad & Kristina Nikitina
+// Date: Spring 2022
+
+
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -7,21 +14,26 @@ using SimplexNoise;
 
 namespace Frost
 {
+    /// <summary>
+    /// Sets up the noise map and the seed.
+    /// </summary>
     public class Setup
     {
-        public static float[,] noise;
-        public static float[,] obj;
+        internal static float[,] noise;
+        internal static float[,] obj;
 
-        public static int width, height;
+        internal static int width, height;
         public static int seed = 0;
-        public static float noiseModifier = 0.1f;
+        internal static float noiseModifier = 0.1f;
 
-        public static float waterPercent = 50f;
-        public static float beachPercent = 10f;
+        internal static float waterPercent = 50f;
+        internal static float beachPercent = 10f;
 
 
-        // Initiazes our noise map using SimplexNoise
-        public static void Noise()
+        /// <summary>
+        /// Generates a Noise map using SimplexNoise
+        /// </summary>
+        internal static void Noise()
         {
             // Changes seed if user have assigned one
             SimplexNoise.Noise.Seed = seed;
@@ -32,18 +44,24 @@ namespace Frost
             // Create a copy of Noise so we have original if we want to use it later
             obj = new float[width, height];
             obj = noise;
-
         }
 
-        public static void randomSeed()
+
+        /// <summary>
+        /// Used to generate a random seed using Unity's randomizer if there is no seed given
+        /// </summary>
+        internal static void randomSeed()
         {
             // Seed up to 100 million
             seed = UnityEngine.Random.Range(0, 100000000);
         }
 
+
+        /// <summary>
+        /// Assign an id to each position in the noise map based on its value
+        /// </summary>
         internal static void assignTiles()
         {
-
             for (int x = 0; x < width; x++)
             {
                 for (int y = 0; y < height; y++)
@@ -65,9 +83,6 @@ namespace Frost
                     }
                 }
             }
-
         }
-
-
     }
 }
