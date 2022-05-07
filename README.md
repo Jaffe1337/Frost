@@ -37,8 +37,6 @@ There is an option between randomly generating singular objects across the map o
 - Then choose which biome the objects will spawn in by clicking the dropdown menu and choosing the biome.
 - Click "Generate object" for singular object scatter or "Generate group objects" for grouped scatter.
 
-
-
 # Known working Unity versions
 
 - Unity 2020.3
