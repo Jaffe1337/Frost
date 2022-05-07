@@ -28,7 +28,6 @@ class FrostEditor : EditorWindow
 
     Vector2 scrollPos;
 
-
     [MenuItem("Window/Frost Editor")]
 
     public static void ShowWindow()
@@ -77,7 +76,6 @@ class FrostEditor : EditorWindow
 
     void OnGUI()
     {
-
         EditorGUIUtility.labelWidth = 100;
 
         var label_style = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter };
@@ -111,9 +109,11 @@ class FrostEditor : EditorWindow
 
         if (GUILayout.Button("Generate Map"))
         {
+            map.ClearAllTiles();
             Map.setTiles(Coast, Water, Main_land, Biome_1, Biome_2, map);
-            Generation.world(width, height, seed, modifier);
-            Debug.Log(seed);
+            Generation.world(width, height, seed, modifier, waterPercent, beachPercent);
+            seed = Setup.seed;
+            
         }
 
         GUILayout.Space(20);
@@ -150,7 +150,5 @@ class FrostEditor : EditorWindow
         EditorGUILayout.EndHorizontal();
 
         EditorGUILayout.EndScrollView();
-
-
     }
 }

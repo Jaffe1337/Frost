@@ -1,7 +1,7 @@
 ﻿// Frost Library
 //
 // A random world generation library for Unity.
-// Created by: Jan Fredrik Bråstad & Kristina Nikitina
+// Authors: Jan Fredrik Bråstad & Kristina Nikitina
 // Date: Spring 2022
 
 
@@ -27,78 +27,50 @@ namespace Frost
         private static Tile Biome3;
 
         // Used for debugging
-        private static Tile Border;
-        
+        // private static Tile Border;
+
         // The tilemap
-        internal static Tilemap map;
+        // Made public in case user want to directly generate world with more controll
+        public static Tilemap map;
 
 
+       
         /// <summary>
-        /// Small function that prevents a lot of similar code.
+        /// Set all the tiles in a given area
         /// </summary>
-        /// <param name="biome"> The biome that will be put on the tilemap </param>
-        /// <param name="tile"> The tile we want to place </param>
-        private static void assign(Generation.Biome biome, Tile tile)
+        /// <param name="partialMap"> List containing the tileId's </param>
+        /// <param name="modifiers"> Modifiers refering to these cordinates relative to the rest of the map </param>
+        /// <param name="size"> Size of the array </param>
+        internal static void updatePartialTiles(int[,] partialMap, int[] modifiers, int[] size)
         {
-            foreach (List<int> pos in biome.area)
+            for (int x = 0; x < size[0]; x++)
             {
-                map.SetTile(new Vector3Int(pos[0], pos[1], 0), tile);
-            }
-        }
-
-
-        /// <summary>
-        /// Set all the tiles in the tilemap
-        /// </summary>
-        internal static void updateAllTiles()
-        {
-            // Clears the map.
-            clearMap();
-            
-            // Set water and coast tile
-            for (int x = 0; x < Setup.width; x++)
-            {
-                for (int y = 0; y < Setup.height; y++)
+                for (int y = 0; y < size[1]; y++)
                 {
-                    switch (Setup.obj[x, y])
+                    switch (partialMap[x, y])
                     {
-                        case 2:
-                            map.SetTile(new Vector3Int(x, y, 0), Coast);
+                        // Changed to negative values to not be mistaken for biomes
+                        case -2:
+                            map.SetTile(new Vector3Int(x + modifiers[0], y + modifiers[1], 0), Coast);
                             break;
-                        case 3:
-                            map.SetTile(new Vector3Int(x, y, 0), Water);
+                        case -1:
+                            map.SetTile(new Vector3Int(x + modifiers[0], y + modifiers[1], 0), Water);
+                            break;
+                        case 1:
+                            map.SetTile(new Vector3Int(x + modifiers[0], y + modifiers[1], 0), Biome1);
+                            break;
+                        case 4:
+                            map.SetTile(new Vector3Int(x + modifiers[0], y + modifiers[1], 0), Biome1);
+                            break;
+                        case 5:
+                            map.SetTile(new Vector3Int(x + modifiers[0], y + modifiers[1], 0), Biome2);
+                            break;
+                        case 6:
+                            map.SetTile(new Vector3Int(x + modifiers[0], y + modifiers[1], 0), Biome3);
                             break;
                     }
                 }
             }
-
-            // Set all biome tiles
-            foreach (Generation.Biome biome in Generation.biomes.Values)
-            {
-                switch (biome.tileId)
-                {
-                    case 4:
-                        assign(biome, Biome1); // base landmass
-                        break;
-                    case 5:
-                        assign(biome, Biome2);
-                        break;
-                    case 6:
-                        assign(biome, Biome3);
-                        break;
-                }
-
-            }
-
-            // Set bordering tiles.
-            // Border tile is set to null and this part is only used for debugging
-            foreach (Generation.Biome biome in Generation.biomes.Values)
-            {
-                foreach (List<int> pos in biome.border)
-                {
-                    map.SetTile(new Vector3Int(pos[0], pos[1], 0), Border);
-                }
-            }     
         }
 
 
@@ -115,6 +87,7 @@ namespace Frost
 
             map = grid;
         }
+
 
         /// <summary>
         /// This function is needed to prevent a bug in map generation.

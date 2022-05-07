@@ -1,7 +1,7 @@
 ﻿// Frost Library
 //
 // A random world generation library for Unity.
-// Created by: Jan Fredrik Bråstad & Kristina Nikitina
+// Authors: Jan Fredrik Bråstad & Kristina Nikitina
 // Date: Spring 2022
 
 
@@ -27,7 +27,8 @@ namespace Frost
 
 
         // List of all biomes currently in our generated map
-        internal static Dictionary<int, Biome> biomes; 
+        // set to public for user to use in procedural generation
+        public static Dictionary<int, Biome> biomes; 
 
         // The current biomeId
         private static int biomeId = 0;
@@ -40,9 +41,7 @@ namespace Frost
         {
             // Something went wrong here
             public
-                List<List<int>> area;
-            public
-                List<List<int>> border;
+                List<List<int>> area, border;
             public
                 int biomeId, tileId;
 
@@ -56,8 +55,8 @@ namespace Frost
             {
                 this.biomeId = biomeId;
                 this.tileId = tileId;
-                area = new List<List<int>> { };
-                border = new List<List<int>> { };
+                this.area = new List<List<int>> { };
+                this.border = new List<List<int>> { };
             }
 
 
@@ -75,7 +74,7 @@ namespace Frost
             /// Expands biome border with new tile position
             /// </summary>
             /// <param name="pos"> List of 2 ints representing the x and y position of a tile </param>
-            public void expandBorder(List<int> pos)
+            private void expandBorder(List<int> pos)
             {
                 // Only one border tile can fail if biome border to multiple biomes
                 this.border.Add(pos);
@@ -104,13 +103,13 @@ namespace Frost
                 // bug with limit = 500
                 foreach (List<int> pos in this.area)
                 {
-                    if(pos[0] % (limit - 1) == 0 || pos[1] % (limit - 1) == 0)
+                    if(pos[0] % (limit) == 0 || pos[1] % (limit) == 0)
                     {
                         this.expandBorder(pos);
                     }
-                    // test with limit -1 aswell, maybe fix bug
                 }
             }
+
         }
 
 
@@ -118,22 +117,13 @@ namespace Frost
         /// Iterates through all biomes and gives them a border based on the limit which divided them
         /// </summary>
         /// <param name="limit"> Limit that divided biomes, used to create the border for merging </param>
-        public static void setBiomeBorder(int limit)
+        private static void setBiomeBorder(int limit)
         {
             foreach (Biome biome in biomes.Values)
             {
                 biome.setBorder(limit);
             }
         } 
-
-
-        /* Border fix maybe:
-         * 
-         * Try with only one tile again. Only one tile per border. can be done by checking similarities with x or y pos
-         * but check if new border tile x or y pos  tile matches 
-         * 
-         * 
-        */
 
 
         /// <summary>
@@ -216,7 +206,6 @@ namespace Frost
             {
                 for (int y = 0; y < size[1]; y++)
                 {
-
                     if (Setup.obj[x + modifier[0], y + modifier[1]] == id)
                     {
 
@@ -253,7 +242,6 @@ namespace Frost
                 for (int h = 0; h < size[1]; h++)
                     altMap[w, h] = Setup.obj[w + modifier[0], h + modifier[1]];
 
-            checkMap();
         }
 
 
@@ -290,133 +278,9 @@ namespace Frost
                     }
 
                     divide();
+                    checkMap();
                 }
             }
-        }
-
-
-        /// <summary>
-        /// Checks either for what biome is biggest or smaller, depends on usage. 
-        /// Main objective is to prevent repeatable code in the biomeMerging function.
-        /// </summary>
-        /// <param name="biome1"> The first biome </param>
-        /// <param name="biome2"> The second biome </param>
-        /// <param name="up"> Bool value to decide if we look for the smallest or highest biome id </param>
-        /// <returns> A list of two biomeId's </returns>
-        private static List<int> biomeCheck(Biome biome1, Biome biome2, bool up)
-        {
-            // Check for which biome has the lowest id, and merge the other with it
-            if (up)
-            {                
-                if (biome2.biomeId > biome1.biomeId)
-                {
-                    // biome2 id biggest
-                    return new List<int> { biome2.biomeId, biome1.biomeId }; // first merge with second, second get removed
-                }
-                else
-                {
-                    // biome1 id biggest
-                    return new List<int> { biome1.biomeId, biome2.biomeId };
-                }
-            }
-
-            if (biome2.biomeId < biome1.biomeId)
-            {
-                // biome1 id biggest
-                return new List<int> { biome2.biomeId, biome1.biomeId };
-            }
-            else
-            {
-                // biome2 id biggest
-                return new List<int> { biome1.biomeId, biome2.biomeId };
-            }
-        }
-
-
-        /// <summary>
-        /// Function that merge biomes that border each other in the case of generating a map to big that it had to be split up.
-        /// </summary>
-        /// <param name="upCheck"> Bool passed on to biomeCheck function </param>
-        private static void biomeMerging(bool upCheck)
-        {
-            List<Biome> temp = new List<Biome> { };
-            List<List<int>> revomables = new List<List<int>> { };
-
-            // Add biomes with a border
-            foreach (Biome biome in biomes.Values)
-            {
-                if (biome.border.Count > 0 && biome.area.Count > 0) // remove last check?
-                {
-                    temp.Add(biome);
-                }
-            }
-
-            // Remove biomes that border to total map border
-            // Maybe fix all the nested for loops? split into function?
-            foreach (Biome biome in temp)
-            {
-                int x = biome.border[0][0];
-                int y = biome.border[0][1];
-
-
-                int up = y - 1;
-                int down = y + 1;
-                int right = x + 1;
-                int left = x - 1;
-
-
-                List<int> list = new List<int> { x, down };
-                List<int> list2 = new List<int> { x, up };
-                List<int> list3 = new List<int> { left, y };
-                List<int> list4 = new List<int> { right, y };
-
-
-                // make it only check other border biomes for effeciency
-                foreach (Biome biome2 in biomes.Values)
-                // for(int i = 0; i < biomes.Count;)
-                {
-                    //if(biomes.ContainsKey(i))
-                    foreach (List<int> l in biome2.area) // Causes bug, because we add to are in biomeCheck()
-                    {
-                        if (down != 0 && l[0] == list[0] && l[1] == list[1] && biome.biomeId != biome2.biomeId)
-                        {
-                            revomables.Add(biomeCheck(biome, biome2, upCheck));
-                            // biome2.tileId = biome.tileId;
-                        }
-                        else if (up != 0 && l[0] == list2[0] && l[1] == list2[1] && biome.biomeId != biome2.biomeId)
-                        {
-                            revomables.Add(biomeCheck(biome, biome2, upCheck));
-                        }
-                        else if (left != 0 && l[0] == list3[0] && l[1] == list3[1] && biome.biomeId != biome2.biomeId)
-                        {
-                            revomables.Add(biomeCheck(biome, biome2, upCheck));
-                        }
-                        else if (right != 0 && l[0] == list4[0] && l[1] == list4[1] && biome.biomeId != biome2.biomeId)
-                        {
-                            revomables.Add(biomeCheck(biome, biome2, upCheck));
-                        }
-                    }
-                }
-            }
-
-
-            
-            foreach(List<int> id in revomables)
-            {
-                if (biomes.ContainsKey(id[1]) && biomes.ContainsKey(id[0]))
-                {
-                    biomes[id[0]].merge(biomes[id[1]]); // same id may appear more than once?
-                    // biomes[id[1]].deleteArea();   
-
-                    biomes.Remove(id[1]);
-
-                    UnityEngine.Debug.Log(id[1]);
-                }                
-            }   
-            
-            // maybe fix for biomes without border:
-            // search for tiles which pos is dividable by 501/500/499 and do biomecheck
-
         }
 
 
@@ -458,22 +322,28 @@ namespace Frost
 
             // Set up noise map
             Setup.Noise();
-            Setup.assignTiles();
+            Setup.obj = Setup.assignTiles(Setup.noise, pWidth, pHeight);
 
             // Controls general map generation
             controller(listLimit);
+
+            // biome border fix can be done as early as here?
 
             // Creates borders for merging
             setBiomeBorder(listLimit);
 
             // Merge biomes, performed two times for more precision 
-            biomeMerging(true);
-            biomeMerging(false);
+            // biomeMerging();
+            // biomeMerging(false);
+
+            // Object merging:
+            Merge.objectMerging();
 
             // Updates the map
-            Map.updateAllTiles();
+            // Map.updateAllTiles();
+            Map.updatePartialTiles(Setup.obj, new int[] { 0, 0 }, new int[] { Setup.width, Setup.height });
 
-            return Map.map;
+            return Map.map; // not necessary
         }
 
     }
